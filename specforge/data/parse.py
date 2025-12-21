@@ -30,7 +30,6 @@ class Parser(ABC):
         Returns:
             A list of tensors: [input_ids, loss_mask]
         """
-        pass
 
 
 _harmony_encoding = None
@@ -42,10 +41,10 @@ class GeneralParser(Parser):
         super().__init__(tokenizer, chat_template)
         self.system_prompt = chat_template.system_prompt
         self.user_message_separator = (
-            f"{chat_template.end_of_turn_token}{chat_template.user_header}"
+            f"{chat_template.end_of_turn_token or ''}{chat_template.user_header}"
         )
         self.assistant_message_separator = (
-            f"{chat_template.end_of_turn_token}{chat_template.assistant_header}"
+            f"{chat_template.end_of_turn_token or ''}{chat_template.assistant_header}"
         )
 
     def parse(

@@ -24,7 +24,6 @@ import torch
 import torch.distributed as dist
 from datasets import Dataset
 from torch.utils.data import DataLoader, DistributedSampler
-from transformers import PreTrainedTokenizer
 
 
 class DataCollatorWithPadding:
@@ -263,6 +262,7 @@ def prepare_dp_dataloaders(
         pin_memory=pin_memory,
         prefetch_factor=prefetch_factor,
         collate_fn=datacollator_cls(),
+        drop_last=True,
         **dataloader_kwargs
     )
     return dataloader
